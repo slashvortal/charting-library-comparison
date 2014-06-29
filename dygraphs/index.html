@@ -1,0 +1,28 @@
+<html>
+<head>
+  <script type="text/javascript" src="dygraph-combined.js"></script>
+  <script src="../bower_components/serial-liar/dist/serial-liar.js"></script>
+</head>
+<body>
+<div id="graphdiv" style="width:960px; height:500px;"></div>
+<script type="text/javascript">
+  var generator = serialLiar
+    .arithmetic(Math.PI * 2 / 25)
+    .map(Math.sin)
+    .add(serialLiar.randomWalk())
+    .add(serialLiar.arithmetic(0.05));
+
+  var g = new Dygraph(
+
+    // containing div
+    document.getElementById("graphdiv"),
+    function(){
+      return generator(1000).map(function(data, index){
+        return [index, data];
+      });
+    }
+  );
+
+</script>
+</body>
+</html>

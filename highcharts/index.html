@@ -1,0 +1,42 @@
+<html>
+<head>
+<script src="http://code.highcharts.com/adapters/standalone-framework.js"></script>
+
+  <script type="text/javascript" src="highcharts.js"></script>
+  <script src="../bower_components/serial-liar/dist/serial-liar.js"></script>
+</head>
+<body>
+
+<div id="container" style="width:960px; height:500px;"></div>
+
+<script type="text/javascript">
+
+  var generator = serialLiar
+    .arithmetic(Math.PI * 2 / 25)
+    .map(Math.sin)
+    .add(serialLiar.randomWalk())
+    .add(serialLiar.arithmetic(0.05));
+
+var chart1 = new Highcharts.Chart({
+    chart: {
+      renderTo: document.querySelector('#container')
+    },
+    
+    plotOptions: {
+      series: {
+        animation: false  
+      }
+    },
+
+    title: {
+        text: ''
+    },
+    
+    series: [{
+        data: generator(1000)
+    }]
+});
+
+</script>
+</body>
+</html>
