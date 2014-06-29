@@ -1,0 +1,39 @@
+<html>
+<head>
+  <title>Chart.js</title>
+  <script type="text/javascript" src="chart.js"></script>
+  <script src="../bower_components/serial-liar/dist/serial-liar.js"></script>
+</head>
+<body>
+
+<canvas id="myChart" width="960" height="500"></canvas>
+
+<script type="text/javascript">
+
+
+  var generator = serialLiar
+    .arithmetic(Math.PI * 2 / 25)
+    .map(Math.sin)
+    .add(serialLiar.randomWalk())
+    .add(serialLiar.arithmetic(0.05));
+var data = generator(1000);
+var indices = data.map(function(_, index){return index;});
+
+
+// I can't figure out how to reduce the number of labels without
+// reducing fidelity of the data. Weird.
+Chart.defaults.global.animation = false;;
+var ctx = document.getElementById("myChart").getContext("2d");
+var myNewChart = new Chart(ctx).Line({
+  labels: indices,
+  datasets: [
+    { 
+      label: "",
+      data: generator(1000) 
+    }
+  ]
+});
+
+</script>
+</body>
+</html>

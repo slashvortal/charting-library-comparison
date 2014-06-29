@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>Rickshaw</title>
+
+  <script type="text/javascript" src="d3.js"></script>
+  <script type="text/javascript" src="rickshaw.js"></script>
+
+  <script src="../bower_components/serial-liar/dist/serial-liar.js"></script>
+</head>
+<body>
+
+<div id="chart"></div>
+
+<script type="text/javascript">
+
+
+  var generator = serialLiar
+    .arithmetic(Math.PI * 2 / 25)
+    .map(Math.sin)
+    .add(serialLiar.randomWalk())
+    .add(serialLiar.arithmetic(0.05));
+var data = generator(1000).map(function(value, index){
+  return {
+    x: index,
+    y: value
+  }
+});
+var indices = data.map(function(_, index){return index;});
+
+var graph = new Rickshaw.Graph( {
+  element: document.getElementById("chart"),
+  width: 960,
+  height: 500,
+  renderer: 'line',
+  series: [
+    {
+      color: "#c05020",
+      data: data
+    }
+  ]
+} );
+
+graph.render();
+
+</script>
+</body>
+</html>
