@@ -18,8 +18,8 @@
     .arithmetic(Math.PI * 2 / 25)
     .map(Math.sin)
     .add(serialLiar.randomWalk())
-    .add(serialLiar.arithmetic(0.05));
-var data = generator(1000).map(function(value, index){
+    .add(serialLiar.arithmetic(0.005));
+var data = generator(100000).map(function(value, index){
   return {
     x: index,
     y: value

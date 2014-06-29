@@ -1,6 +1,6 @@
 {
   "name": "serial-liar",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fake serial number generators",
   "keywords": [
     "generator",
@@ -38,14 +38,14 @@
     "url": "git@github.com:oztu/serial-liar.git"
   },
   "dependencies": {},
-  "_release": "0.0.1",
+  "_release": "0.0.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.1",
-    "commit": "69549141ae67185480f46da0c491fe7f6bae26cf"
+    "tag": "v0.0.2",
+    "commit": "48b1389aad1d40486a59c16dddefe7b11553ee12"
   },
   "_source": "git://github.com/oztu/serial-liar.git",
-  "_target": "~0.0.1",
+  "_target": "~0.0.2",
   "_originalSource": "serial-liar",
   "_direct": true
 }

@@ -11,14 +11,14 @@
     .arithmetic(Math.PI * 2 / 25)
     .map(Math.sin)
     .add(serialLiar.randomWalk())
-    .add(serialLiar.arithmetic(0.05));
+    .add(serialLiar.arithmetic(0.005));
 
   var g = new Dygraph(
 
     // containing div
     document.getElementById("graphdiv"),
     function(){
-      return generator(1000).map(function(data, index){
+      return generator(100000).map(function(data, index){
         return [index, data];
       });
     }

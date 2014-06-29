@@ -16,7 +16,7 @@
     .arithmetic(Math.PI * 2 / 25)
     .map(Math.sin)
     .add(serialLiar.randomWalk())
-    .add(serialLiar.arithmetic(0.05));
+    .add(serialLiar.arithmetic(0.005));
 
 var chart1 = new Highcharts.Chart({
     chart: {
@@ -34,7 +34,7 @@ var chart1 = new Highcharts.Chart({
     },
 
     series: [{
-        data: generator(1000)
+        data: generator(100000)
     }]
 });
 
