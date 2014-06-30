@@ -20,8 +20,9 @@ var data = generator(1000);
 var indices = data.map(function(_, index){return index;});
 
 
-// I can't figure out how to reduce the number of labels without
-// reducing fidelity of the data. Weird.
+// A nice little WTF from the documentation: "The line chart requires 
+// an array of labels for each of the data points."
+
 Chart.defaults.global.animation = false;;
 var ctx = document.getElementById("myChart").getContext("2d");
 var myNewChart = new Chart(ctx).Line({

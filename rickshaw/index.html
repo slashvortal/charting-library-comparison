@@ -19,13 +19,20 @@
     .map(Math.sin)
     .add(serialLiar.randomWalk())
     .add(serialLiar.arithmetic(0.005));
-var data = generator(100000).map(function(value, index){
-  return {
-    x: index,
-    y: value
-  }
-});
-var indices = data.map(function(_, index){return index;});
+
+
+var index = 0;
+var numbers = generator(1000);
+var data = [];
+
+while(index < numbers.length){
+  data.push({ 
+    x: index, 
+    y: numbers[index]
+  });
+
+  index++;
+}
 
 var graph = new Rickshaw.Graph( {
   element: document.getElementById("chart"),
@@ -41,6 +48,24 @@ var graph = new Rickshaw.Graph( {
 } );
 
 graph.render();
+
+
+ops = 0;
+function update(){
+    ops++;
+    data.push({x: index++, y: generator()});
+    data.shift();
+    graph.update();
+    setTimeout(update, 0);
+}
+
+setInterval(function(){
+    console.log(ops, "per second");
+    ops = 0;
+}, 1000);
+
+update();
+
 
 </script>
 </body>

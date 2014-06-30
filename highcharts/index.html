@@ -17,14 +17,42 @@
     .map(Math.sin)
     .add(serialLiar.randomWalk())
     .add(serialLiar.arithmetic(0.005));
-
-var chart1 = new Highcharts.Chart({
+var data = generator(1000);
+var chart = new Highcharts.Chart({
     chart: {
       renderTo: document.querySelector('#container')
     },
     
+    xAxis: {
+       lineWidth: 0,
+       minorGridLineWidth: 0,
+       lineColor: 'transparent',
+       labels: {
+           enabled: false
+       },
+       minorTickLength: 0,
+       tickLength: 0
+    },
+    tooltip: {
+        followPointer: false
+    },
+     yAxis: {
+       lineWidth: 0,
+       minorGridLineWidth: 0,
+       gridLineWidth: 0,
+       lineColor: 'transparent',
+       gridLineColor: 'transparent',
+       labels: {
+           enabled: false
+       },
+       minorTickLength: 0,
+       tickLength: 0
+    },
+
     plotOptions: {
+      animation: false  ,
       series: {
+         enableMouseTracking: false,
         animation: false  
       }
     },
@@ -34,9 +62,27 @@ var chart1 = new Highcharts.Chart({
     },
 
     series: [{
-        data: generator(100000)
+        data: data
     }]
 });
+
+
+
+ops = 0;
+function update(){
+    ops++;
+
+    chart.series[0].addPoint(generator(), true, true, {duration: 0});
+    setTimeout(update, 0);
+}
+
+setInterval(function(){
+    console.log(ops, "per second");
+    ops = 0;
+}, 1000);
+
+update();
+
 
 </script>
 </body>

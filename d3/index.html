@@ -13,15 +13,24 @@
     .add(serialLiar.randomWalk())
     .add(serialLiar.arithmetic(0.005));	
 
-  data = generator(100000);
-	</script>
+var index = 0;
+var numbers = generator(1000);
+var data = [];
 
-	<script>
+while(index < numbers.length){
+  data.push({ 
+    x: index, 
+    y: numbers[index]
+  });
+
+  index++;
+}
+var start = 0;
+
 	// The rest of the example is just a copy/paste with minor
 	// modifications from http://bl.ocks.org/mbostock/3883245
-	var margin = {top: 20, right: 20, bottom: 30, left: 50},
-	    width = 960 - margin.left - margin.right,
-	    height = 500 - margin.top - margin.bottom;
+	var width = 960,
+	    height = 500;
 
 	var x = d3.scale.linear()
 	    .range([0, width]);
@@ -29,67 +38,48 @@
 	var y = d3.scale.linear()
 	    .range([height, 0]);
 
-	var xAxis = d3.svg.axis()
-	    .scale(x)
-	    .orient("bottom");
-
-	var yAxis = d3.svg.axis()
-	    .scale(y)
-	    .orient("left");
-
-
 	var line = d3.svg.line()
-	    .x(function(d) { return x(d.index); })
-	    .y(function(d) { return y(d.value); });
+	    .x(function(d) { return x(d.x); })
+	    .y(function(d) { return y(d.y); });
 
 	var svg = d3.select("body").append("svg")
-	    .attr("width", width + margin.left + margin.right)
-	    .attr("height", height + margin.top + margin.bottom)
-	  .append("g")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	    .attr("width", width)
+	    .attr("height", height)
+	  .append("g");
 
-	data = data.map(function(value, index){
-		return {index: index, value: value};
-	});
+  x.domain([start, index]);
+	y.domain(d3.extent(data, function(d){ return d.y; }));
 
-	x.domain([0, data.length])
-	y.domain(d3.extent(data, function(d){ return d.value; }));
-	svg.append("g")
-	  .attr("class", "x axis")
-	  .attr("transform", "translate(0," + height + ")")
-	  .call(xAxis);
-
-	svg.append("g")
-	  .attr("class", "y axis")
-	  .call(yAxis)
-	.append("text")
-	  .attr("transform", "rotate(-90)")
-	  .attr("y", 6)
-	  .attr("dy", ".71em")
-	  .style("text-anchor", "end");
-
-	svg.append("path")
+	var path = svg.append("path")
 	  .datum(data)
 	  .attr("class", "line")
 	  .attr("d", line);
 
+
+
+ops = 0;
+function update(){
+    ops++;
+    data.push({x: index++, y: generator()});
+    data.shift();
+    x.domain([++start, index]);
+    y.domain(d3.extent(data, function(d){ return d.y; }));
+    path.attr("d", line);
+    setTimeout(update, 0);
+}
+
+setInterval(function(){
+    console.log(ops, "per second");
+    ops = 0;
+}, 1000);
+
+update();
+
+
+
+
 	</script>
   <style>
-
-	body {
-	  font: 10px sans-serif;
-	}
-
-	.axis path,
-	.axis line {
-	  fill: none;
-	  stroke: #000;
-	  shape-rendering: crispEdges;
-	}
-
-	.x.axis path {
-	  display: none;
-	}
 
 	.line {
 	  fill: none;

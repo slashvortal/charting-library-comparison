@@ -10,72 +10,96 @@
 
 
         <script>
-            var generator = serialLiar
-                .arithmetic(Math.PI * 2 / 25)
-                .map(Math.sin)
-                .add(serialLiar.randomWalk())
-                .add(serialLiar.arithmetic(0.005));  
+var generator = serialLiar
+    .arithmetic(Math.PI * 2 / 25)
+    .map(Math.sin)
+    .add(serialLiar.randomWalk())
+    .add(serialLiar.arithmetic(0.005));  
 
-            var data = generator(100000);
-
-            function maxOfArray(arr){
-                var max = -Infinity,
-                    index = arr.length;
-
-                while(index--)
-                    if(max < arr[index]) 
-                        max = arr[index];
-
-                return max;
-            }
-
-            function minOfArray(arr){
-                var min = Infinity,
-                    index = arr.length;
-
-                while(index--)
-                    if(min > arr[index]) 
-                        min = arr[index];
-
-                return min;
-            }
+var data = generator(1000);
 
 
-            var min = minOfArray(data);
-            var max = maxOfArray(data);
-            var yOffset = data[0] - min;
-            max += yOffset;
-            
-            var range = max - min;
 
-            var element = document.getElementById('graph');
-            var context = graph.getContext('2d');
-            var width = element.offsetWidth;
-            var height = element.offsetHeight;
-            var dataPoints = data.length;
+function maxOfArray(arr){
+    var max = -Infinity,
+        index = arr.length;
 
-            var xStep = width/dataPoints;
-            var yStep = height/range;
+    while(index--)
+        if(max < arr[index]) 
+            max = arr[index];
 
-            // Return the x pixel for a graph point
-            function getXPixel(val) {
-                return xStep * val;
-            }
-            
-            // Return the y pixel for a graph point
-            function getYPixel(val) {
-                return height - (yStep * (val + yOffset));
-            }
+    return max;
+}
 
-            context.lineWidth = 1;
-            context.strokeStyle = '#333';
-            
-            context.beginPath();
-            context.moveTo(getXPixel(0), getYPixel(data[0]));
-            for(var i = 1; i < dataPoints; i ++) {
-                context.lineTo(getXPixel(i), getYPixel(data[i]));
-            }
-            context.stroke();
+function minOfArray(arr){
+    var min = Infinity,
+        index = arr.length;
+
+    while(index--)
+        if(min > arr[index]) 
+            min = arr[index];
+
+    return min;
+}
+
+var element = document.getElementById('graph');
+var context = graph.getContext('2d');
+context.lineWidth = 1;
+context.strokeStyle = '#333';
+
+var width = element.offsetWidth;
+var height = element.offsetHeight;
+
+
+function clear(){
+    context.clearRect(0, 0, width, height);
+}
+
+function draw(){
+    var dataPoints = data.length;
+    
+    var min = minOfArray(data);
+    var max = maxOfArray(data);
+    var range = max - min;
+    var scalar = height/range;
+    
+    var xStep = width/dataPoints;
+  
+    // Return the x pixel for a graph point
+    function getXPixel(val) {
+        return xStep * val;
+    }
+
+    // Return the y pixel for a graph point
+    function getYPixel(val) {
+        return height - ((val - min) * scalar);
+    }
+
+    clear();
+    context.beginPath();
+    context.moveTo(getXPixel(0), getYPixel(data[0]));
+    for(var i = 1; i < dataPoints; i ++) {
+        context.lineTo(getXPixel(i), getYPixel(data[i]));
+    }
+    context.stroke();
+}
+
+ops = 0;
+function update(){
+    draw();
+    data.push(generator());
+    data.shift();
+    ops++;
+    setTimeout(update, 0);  
+}
+
+setInterval(function(){
+    console.log(ops, "per second");
+    ops = 0;
+}, 1000);
+
+update();
+
         </script>
     </body>
 </html>
