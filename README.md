@@ -10,7 +10,7 @@ The a brief intro to the libraries:
 * [Chart.js](http://www.chartjs.org/) - I think I'm missing something with this framework (because it's so popular for being so young), but it seems very poorly designed.
 * [Plain Canvas](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) - Native browser API.
 
-## Streaming Line Charts
+## Streaming Line Chart Comparison
 Minimal configuration, no axis or grid lines, attempting to redraw as fast as possible (setTimeout(draw, 0)) with one data pushed and one data shifted out with each draw (1,000 points to draw are maintained at all times).
 
 * [D3](http://ozan.io/charting-library-comparison/d3/streaming-line-chart.html) - Surprisingly fast (as fast as native canvas), quite a bit more scripting required though (as opposed to passing in config params to the libraries below).
