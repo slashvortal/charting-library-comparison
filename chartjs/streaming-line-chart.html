@@ -17,8 +17,9 @@
     .add(serialLiar.randomWalk())
     .add(serialLiar.arithmetic(0.005));
 var data = generator(1000);
-var indices = data.map(function(_, index){return index;});
 
+var indices = data.map(function(_, index){return index;});
+index = data.length;
 
 // A nice little WTF from the documentation: "The line chart requires 
 // an array of labels for each of the data points."
@@ -33,7 +34,36 @@ var myNewChart = new Chart(ctx).Line({
       data: data
     }
   ]
+}, {
+  animation: false,
+  datasetFill: false,
+  scaleShowGridLines: false,
+  pointDot: false,
+  pointDotRadius: 0,
+  bezierCurve: false,
+  legendTemplate: "",
+  showScale: false,
+  showTooltips: false,
+  datasetStrokeWidth: 1
+
 });
+
+ops = 0;
+function update(){
+    ops++;
+    myNewChart.removeData();
+    myNewChart.addData([generator()], index++);
+    myNewChart.update();
+    setTimeout(update, 0);
+}
+
+setInterval(function(){
+    console.log(ops, "per second");
+    ops = 0;
+}, 1000);
+
+update();
+
 
 </script>
 </body>
