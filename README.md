@@ -13,9 +13,9 @@ The a brief intro to the libraries:
 ## Streaming Line Chart Comparison
 Minimal configuration, no axis or grid lines, attempting to redraw as fast as possible (setTimeout(draw, 0)) with one data pushed and one data shifted out with each draw (1,000 points to draw are maintained at all times).
 
-* [D3](http://ozan.io/charting-library-comparison/d3/streaming-line-chart.html) - Surprisingly fast (as fast as native canvas), quite a bit more scripting required though (as opposed to passing in config params to the libraries below).
-* [Highcharts](http://ozan.io/charting-library-comparison/highcharts/streaming-line-chart.html) - Huge number of options made it difficult to just get the line with nothing else, runs sloooowww.
-* [Dygraphs](http://ozan.io/charting-library-comparison/dygraphs/streaming-line-chart.html) - Fairly fast, the api is a bit weird in updates in that it's very "file" centric, which doesn't lend itself very well to streaming data.
-* [Rickshaw](http://ozan.io/charting-library-comparison/rickshaw/streaming-line-chart.html) - Oddly buggy (clipping at top and bottom) and slow for being a thin layer on top of D3.
-* [Chart.js](http://ozan.io/charting-library-comparison/chartjs/streaming-line-chart.html) - Every data point in the chart requires a label (so if you have 1000 data points, you need 1000 labels). Also, line charts come as area charts by default. It's by far the slowest of all the considered libraries.
-* [Plain Canvas](http://ozan.io/charting-library-comparison/custom/streaming-line-chart.html) - Baseline benchmark.
+* [D3](http://signalfx.github.io/charting-library-comparison/d3/streaming-line-chart.html) - Surprisingly fast (as fast as native canvas), quite a bit more scripting required though (as opposed to passing in config params to the libraries below).
+* [Highcharts](http://signalfx.github.io/charting-library-comparison/highcharts/streaming-line-chart.html) - Huge number of options made it difficult to just get the line with nothing else, runs sloooowww.
+* [Dygraphs](http://signalfx.github.io/charting-library-comparison/dygraphs/streaming-line-chart.html) - Fairly fast, the api is a bit weird in updates in that it's very "file" centric, which doesn't lend itself very well to streaming data.
+* [Rickshaw](http://signalfx.github.io/charting-library-comparison/rickshaw/streaming-line-chart.html) - Oddly buggy (clipping at top and bottom) and slow for being a thin layer on top of D3.
+* [Chart.js](http://signalfx.github.io/charting-library-comparison/chartjs/streaming-line-chart.html) - Every data point in the chart requires a label (so if you have 1000 data points, you need 1000 labels). Also, line charts come as area charts by default. It's by far the slowest of all the considered libraries.
+* [Plain Canvas](http://signalfx.github.io/charting-library-comparison/custom/streaming-line-chart.html) - Baseline benchmark.
